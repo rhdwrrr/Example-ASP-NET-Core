@@ -1,0 +1,51 @@
+@{
+    ViewData["Title"] = "Kabupaten/Kota dibuang";
+}
+@model IEnumerable<KabupatenKotaDump>
+<h1 class="mt-4">Data Kabupaten/Kota (Dihapus)</h1>
+<hr>
+<div class="float-right">
+    <div class="form-inline">
+        <div class="form group" style="width: auto;">
+            <input type="text" id="searchQuery" name="query" class="form-control" placeholder="Cari">
+        </div>
+    </div>
+</div>
+<table class="table table-hover" id="tabelKabKota">
+    <thead>
+        <th class="text-center align-middle">Kabupaten/Kota</th>
+        <th class="text-center align-middle">Aksi</th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="baris_tabel">
+                <td class="text-center align-middle">@item.kabupatenKota</td>
+                <td class="text-center align-middle">
+                    <a style="color: black;" asp-action="pulihkan" asp-controller="KabupatenKota" asp-area="Administrator" asp-route-ID="@item.ID.ToString()" class="btn btn-outline-primary">Pulihkan</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]")
+        }
+        
+        $(document).ready(function(){
+            var oTable = $("#tabelKabKota").DataTable({
+                @* "pagingType" : "full_numbers", *@
+                "dom":' ltp'
+            });
+            $('#searchQuery').keyup(function(){
+                oTable.search($(this).val()).draw() ;
+            });
+        })
+        
+        
+    </script>
+}

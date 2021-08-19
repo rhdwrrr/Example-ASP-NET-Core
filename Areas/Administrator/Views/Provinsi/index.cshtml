@@ -1,0 +1,56 @@
+@{
+    ViewData["Title"] = "Admin/Provinsi";
+}
+@model IEnumerable<Provinsi>
+<div class="text-center">
+    <h1>Data Provinsi</h1>
+</div>
+<hr>
+@* <a style="margin-bottom: 10pt;" 
+    onclick="gotoPopup('@Url.Action(action: "addOrEdit", controller: "Provinsi", new{Area = "Administrator"}, Context.Request.Scheme)','Tambah Provinsi')" 
+    class="btn btn-outline-primary">
+        <img width="20px" src="/svgs/regular/plus-square.svg" alt="Tambah">
+        Tambah Provinsi
+</a> *@
+
+<button type="button" id="addEditModal" class="btn btn-outline-primary my-2" data-url='@Url.Action("addOrEdit", "Provinsi", new{Area = "Administrator"}, Context.Request.Scheme)' data-title="Tambah Provinsi" data-bs-toggle="modal" data-bs-target="#form-modal">Tambah Provinsi</button>
+
+<a style="margin-bottom: 10pt; width: auto;" asp-action="dihapus" asp-controller="Provinsi" asp-area="Administrator" class="btn btn-outline-info">
+        Daftar Provinsi yang dihapus
+</a>
+<table class="table table-hover">
+    <thead>
+        <th class="text-center align-middle">Provinsi</th>
+        <th class="text-center align-middle">Aksi</th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center align-middle">@item.provinsi</td>
+                <td class="text-center align-middle">
+                    <a style="color: black;" href='@Url.Action("edit", "Provinsi", new{Area = "Administrator", ID = @item.ID.ToString()})' class="btn btn-outline-warning"><img style="border-right: 10px;" width="20px" src="/svgs/regular/edit.svg" alt="Edit">Edit</a>
+                    <a style="color: black;" onclick="hapus('@item.ID.ToString()')" class="btn btn-outline-warning"><img style="border-right: 10px;" width="20px" src="/svgs/regular/trash-alt.svg" alt="Hapus">Hapus</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]")
+        }
+        
+        let hapus = function(param)
+        {
+            if(window.confirm("Yakin ingin memulihkan data ini?"))
+            {
+                window.location.href = "Provinsi/hapus/" + param;
+            }
+        }
+    </script>
+}

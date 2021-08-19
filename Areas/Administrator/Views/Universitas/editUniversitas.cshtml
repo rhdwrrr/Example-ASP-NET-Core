@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Admin/Edit Universitas";
+}
+@model Universitas
+<div class="text-center">
+    <h4>Edit Data Universitas</h4>
+</div>
+
+<form asp-action="editUniversitas" method="post">
+    <div asp-validation-summary="All"></div>
+    <input type="hidden" readonly asp-for="ID">
+    <div class="form-group">
+        <label class="control-label">Provinsi</label>
+        <select class="form-control" asp-for="mst_fkProvinsi" asp-items="@ViewBag.comboProvinsi">
+            <option value="">Daftar Provinsi</option>
+        </select>
+        <span style="display: block;" asp-validation-for="mst_fkProvinsi" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Kategori Universitas</label>
+        <select class="form-control" asp-for="mst_fkKatUniv" asp-items="@ViewBag.comboKategori">
+            <option value="">Daftar Kategori Universitas</option>
+        </select>
+        <span style="display: block;" asp-validation-for="mst_fkKatUniv" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Nama Universitas</label>
+        <input id="namaUniv" class="form-control" asp-for="universitas" type="text">
+        <span style="display: block;" asp-validation-for="universitas" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href='@Url.Action("index", "Universitas", new{Area="Administrator"})' class="btn btn-outline-dark">Batal</a>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+
+        document.getElementById('namaUniv').focus();
+    </script>
+    
+}

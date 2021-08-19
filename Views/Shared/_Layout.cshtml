@@ -1,0 +1,166 @@
+﻿@inject SignInManager<AppUser> signInManager;
+@{
+    var isLogged = signInManager.IsSignedIn(User);
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrigamiEdu</title>
+
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link rel="stylesheet" href="~/lib/bootstrap-icons-1.2.2/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="~/lib/DataTables-1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/lib/DataTables-1.10.21/css/jquery.dataTables.min.css">
+
+    @* CKEditor 4 *@
+    <script src="~/js/ckeditor/ckeditor.js"></script>
+
+    
+    @* LINK FONT CSS *@
+    <link rel="stylesheet" href="~/css/standard/mbm4a_ft_akchmd.css">
+    
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="home" asp-action="index">
+                <img src="~/img/OrigamiEdu-removebg-preview.png" alt="" width="35" height="35" class="d-inline-block align-top"> OrigamiEdu
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" asp-area="" asp-controller="home" asp-action="index" id="navlinkBeranda">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="" asp-controller="kelas" asp-action="index" id="navlinkKelas">Kelas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Administrator" asp-action="index" asp-area="Administrator" id="navlinkAdministrator">Administrator</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                        <ul class="dropdown-menu" style="white-space: normal;" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li style="min-width: 25vw;">
+                                <a class="dropdown-item" href="#">
+                                    <span class="text-wrap">
+                                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum commodi, ad molestiae consequatur quae impedit assumenda in architecto esse delectus.
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                @if (signInManager.IsSignedIn(User))
+                { 
+                    <!-- Notifikasi -->
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-primary dropdown-toggle my-1 mx-lg-1" type="button" id="dropdownNotifikasi" data-bs-toggle="dropdown" aria-expanded="false">
+                            Notifikasi <span class="badge bg-secondary">2</span>
+                        </button>
+                        <!-- CSS 3445 -->
+                        <ul class="dropdown-menu dropdown-menu-sm-start dropdown-menu-lg-end" aria-labelledby="dropdownNotifikasi">
+                            <li style="min-width: 32vw; text-align: justify;">
+                                <a class=" dropdown-item " href="# ">
+                                    <i class=" bi bi-hand-thumbs-up "></i> | <span class="text-wrap ">rhdwrrr menyukai kiriman anda pada grup SBMPTN Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla et ab non asperiores velit beatae unde rem minima, rerum doloremque maxime eius error repellat ullam excepturi quod quisquam laboriosam ipsa.</span>
+                                </a>
+                            </li>
+                            <li><a class="dropdown-item " href="# ">Another action</a></li>
+                            <li><a class="dropdown-item " href="# ">Something else here</a></li>
+                            <li>
+                                <hr class="dropdown-divider ">
+                            </li>
+                            <li><a class="dropdown-item text-center text-link " href="# ">Lihat semua notifikasi</a></li>
+                        </ul>
+                    </div>
+                    <!-- End Notifikasi -->
+
+                    <!-- Profil -->
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle my-1 mx-lg-1 " type="button" id="dropdownProfil" data-bs-toggle="dropdown" aria-expanded="false ">
+                        <i class="bi bi-person-circle "></i> @User.Identity.Name
+                    </button>
+                        <ul class="dropdown-menu dropdown-menu-sm-start dropdown-menu-lg-end" aria-labelledby="dropdownProfil">
+                            <li>
+                                <a class="dropdown-item " href="# ">
+                                    Profil saya
+                                </a>
+                            </li>
+                            <li><a class="dropdown-item " href="# ">Kritik/Saran</a></li>
+                            <li><a class="dropdown-item " href="# ">Testimoni saya</a></li>
+                            <li>
+                                <hr class="dropdown-divider ">
+                            </li>
+                            <li><a class="dropdown-item " href="# ">
+                                <i class="bi bi-box-arrow-left"></i> | Keluar</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End Profil -->
+                }else{
+                    <div class="d-flex">
+                        <a asp-action="masuk" asp-controller="akun" asp-area="" class="btn btn-sm mx-lg-1 my-1 btn-outline-primary">
+                            <i style="font-size: 12pt;" class="bi bi-box-arrow-in-right"></i> | Masuk
+                        </a>
+                    </div>
+                    <div class="d-flex">
+                        <a asp-action="daftar" asp-controller="akun" asp-area="" class="btn btn-sm mx-lg-1 my-1 btn-outline-secondary">
+                            <i style="font-size: 12pt;" class="bi bi-ui-checks"></i> | Daftar
+                        </a>
+                    </div>
+                }
+            </div>
+    </nav>
+    <!-- Navbar End -->
+    <!-- Main Content -->
+    <div class="container-md ">
+        @RenderBody()
+    </div>
+
+
+    <div class="modal fade" tabindex="-1" id="form-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        @* Title Goes Here *@
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @* Content Goes Here! *@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/popper/popper.js "></script>
+    <script src="~/js/bootstrap/bootstrap.js "></script>
+    <script src="~/js/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/js/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/origamiedu.js "></script>
+    <script src="~/lib/DataTables-1.10.21/js/jquery.dataTables.min.js"></script>
+    
+    @RenderSection("scripts", false);
+</body>
+
+</html>

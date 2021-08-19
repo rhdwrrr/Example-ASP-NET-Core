@@ -1,0 +1,63 @@
+@model editRole
+
+@{
+    ViewData["Title"] = $"Edit Role {Model.RoleName}";
+}
+
+<h1 class="text-center">Edit <i>Role</i> @Model.RoleName</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="edit" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="idRole" readonly>
+            <div class="form-group">
+                <label asp-for="RoleName"></label>
+                <input asp-for="RoleName" class="form-control">
+                <span style="display: block;" asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+            <button style="width: auto;" type="submit" class="btn btn-outline-primary">Simpan <i>Role</i></button>
+            <a asp-action="index" class="btn btn-outline-danger">Batal</a>
+        </form>
+    </div>
+</div>
+<div class="row" style="margin-top: 1rem;">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                User yang berada di role: @Model.RoleName
+            </div>
+            <div class="card-body">
+                @{
+                    if(Model.users.Any())
+                    {
+                        foreach (var item in Model.users)
+                        {
+                            <h5 class="card-title">
+                                @item
+                            </h5>
+                        }
+                    }
+                    else{
+                        <h5 class="card-title">
+                            Tidak ada user untuk ditampilkan.
+                        </h5>
+                    }
+                }
+            </div>
+            <div class="card-footer">
+                <a asp-route-roleID="@Model.idRole" asp-action="manageUserInRole" asp-controller="Role" asp-area="Administrator" style="width: auto;" class="btn btn-outline-info">Tambah/Hapus User di Role @Model.RoleName</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+    </script>
+}

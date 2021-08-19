@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Admin/Tambah KabupatenKota";
+}
+@model KabupatenKota
+<h1 class="mt-4">Tambah Kabupaten/Kota</h1>
+
+<form asp-action="tambah" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label class="control-label">Pilih Provinsi</label>
+        <select asp-for="mst_primaryProvinsi" class="form-control" id="comboProvinsi" asp-items="@ViewBag.comboProvinsi">
+            <option value="">Daftar Provinsi</option>
+        </select>
+        <span style="display: block;" asp-validation-for="mst_primaryProvinsi" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Nama Kabupaten/Kota</label>
+        <textarea id="kabKota" class="form-control" asp-for="kabupatenKota"></textarea>
+        <span style="display: block;">Untuk input lebih dari satu, pisahkan tiap-tiap <i>item</i> dengan <strong>semicolon (;)</strong></span>
+        <span>Contoh: Kabupaten A;Kota B;Kota C</span> 
+        <span style="display: block;" asp-validation-for="kabupatenKota" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href='@Url.Action("index", "KabupatenKota", new{Area="Administrator"})' class="btn btn-outline-dark">Batal</a>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        @* document.getElementById('comboProvinsi').removeAttribute("multiple"); *@
+
+        document.getElementById('kabKota').focus();
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]")
+        }
+
+        let redirectValue = function(){
+            document.getElementById('valProvinsi').value = document.getElementById('comboProvinsi').value;
+        }
+    </script>
+}

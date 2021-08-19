@@ -1,0 +1,47 @@
+@model signInModel
+@{
+    ViewData["Title"] = "Masuk ";
+}
+<h1 class="text-center my-2">Masuk ke OrigamiEdu</h1>
+<form asp-action="masuk" method="post" asp-route-returnurl='@ViewData["ReturnUrl"]'>
+    <div class="row d-flex my-2 p-2">
+        <div class="col-6 mx-auto">
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+    </div>
+    <div class="row d-flex my-2 p-2">
+        <div class="col-6 mx-auto">
+            <div class="form-group">
+                <label asp-for="username"></label>
+                <input asp-for="username" class="form-control">
+                <span asp-validation-for="username" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex my-2 p-2">
+        <div class="col-6 mx-auto">
+            <div class="form-group">
+                <label asp-for="password"></label>
+                <input asp-for="password" class="form-control">
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex my-2 p-2">
+        <div class="col-6 mx-auto">
+            <div class="form-group">
+                <label asp-for="rememberMe">
+                    <div class="checkbox">
+                        <input asp-for="rememberMe">
+                        @Html.DisplayNameFor(m => m.rememberMe)
+                    </div>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row my-2 p-2">
+        <div class="col-6 d-flex mx-auto">
+            <button type="submit" class="mx-auto btn btn-outline-primary">Masuk</button>
+        </div>
+    </div>
+</form>

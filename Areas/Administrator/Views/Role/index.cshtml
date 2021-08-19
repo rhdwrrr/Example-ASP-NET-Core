@@ -1,0 +1,59 @@
+@{
+    ViewData["Title"] = "Admin/Role";
+}
+@model IEnumerable<IdentityRole>
+<h1 class="text-center"><i>Roles</i> Data</h1>
+
+
+@if(Model.Any())
+{
+    <a style="width: auto;" href='@Url.Action("tambah", "Role", new{Area = "Administrator"})' class="btn btn-outline-primary">Tambah <i>Role</i> baru</a>
+    <div class="row">
+    @foreach (var item in Model)
+    {
+        var stringID = item.Id.ToCharArray();
+        <div class="col-md-4" style="margin-top: 1rem;">
+            @* style="margin-top: 1rem; margin-left: 0.5rem; margin-right: 0.5rem; padding: 0;" *@
+            <div class="card">
+                <div class="card-header">
+                    <i>Unique Key</i>: @for (int i = 0; i < stringID.Length; i++){if(i < 12){<span>@stringID[i]</span>continue;}<span>...</span>break;}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        @item.Name
+                    </h5>
+                </div>
+                <div class="card-footer">
+                    <a asp-route-id="@item.Id" asp-action="edit" asp-controller="Role" asp-area="Administrator" class="btn btn-outline-warning">Edit</a>
+                    @* <a href='@Url.Action("edit", "Role", new{Area = "Administrator", ID = @item.Id})' class="btn btn-outline-warning">Edit</a> *@
+                    <a href="" class="btn btn-outline-danger">Hapus</a>
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+    
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            Tidak ada <i>Roles</i> untuk ditampilkan
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Tekan tombol dibawah untuk membuat <i>Role</i>
+            </h5>
+            <a style="width: auto;" href='@Url.Action("tambah", "Role", new{Area = "Administrator"})' class="btn btn-outline-primary">Tambah <i>Role</i> baru</a>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]")
+        }
+    </script>
+}

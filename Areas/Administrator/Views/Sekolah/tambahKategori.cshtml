@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Admin/Tambah Kategori Sekolah";
+}
+@model KategoriSekolah
+<h1 class="mt-4">Tambah Kategori Sekolah</h1>
+
+<form asp-action="tambahKategori" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label class="form-label">Nama Kategori Sekolah</label>
+        <textarea id="ctgSchool" class="form-control" asp-for="namaKategori"></textarea>
+        <span style="display: block;">Untuk input lebih dari satu, pisahkan tiap-tiap <i>item</i> dengan <strong>semicolon (;)</strong></span>
+        <span>Contoh: Kategori Sekolah A;Kategori Sekolah B</span>
+        <span style="display: block;" asp-validation-for="namaKategori" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href='@Url.Action("index", "Sekolah", new{Area="Administrator"})' class="btn btn-outline-dark">Batal</a>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+
+        document.getElementById('ctgSchool').focus();
+    </script>
+    
+}

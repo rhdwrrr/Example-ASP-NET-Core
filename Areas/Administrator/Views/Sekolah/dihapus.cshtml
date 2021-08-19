@@ -1,0 +1,55 @@
+@model IEnumerable<SekolahDump>
+@{
+    ViewData["Title"] = "Sekolah dihapus";
+}
+
+<div class="row">
+    <div class="col">
+        <h1 class="mt-4">Data Sekolah (dihapus)</h1>
+        <hr>
+        <div class="float-right">
+            <div class="form-inline">
+                <div class="form group" style="width: auto;">
+                    <input type="text" id="searchQuery" name="query" class="form-control" placeholder="Cari">
+                </div>
+            </div>
+        </div>
+        <table class="table table-hover" id="tableSekolah">
+            <thead>
+                <th class="text-center align-middle">Sekolah</th>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="baris_tabel">
+                        <td class="text-center align-middle">@item.sekolah</td>
+                        <td class="text-center align-middle">
+                            <a style="color: black;" asp-action="pulihkan" asp-controller="Sekolah" asp-area="Administrator" asp-route-ID="@item.ID.ToString()" class="btn btn-outline-primary">Pulihkan</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+
+
+
+        $(document).ready(function(){
+            var schTable = $("#tableSekolah").DataTable({
+                @* "pagingType" : "full_numbers", *@
+                "dom":' ltp'
+            });
+            $('#searchQuery').keyup(function(){
+                schTable.search($(this).val()).draw() ;
+            });
+        })
+    </script>
+}

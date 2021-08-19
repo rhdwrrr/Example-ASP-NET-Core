@@ -1,0 +1,128 @@
+@{
+    ViewData["Title"] = "Data Universitas";
+}
+<div class="row">
+    <div class="col">
+        <h1 class="mt-4">Data Kategori Universitas</h1>
+        <hr>
+        <div class="float-right">
+            <div class="form-inline">
+                <div class="form group" style="width: auto;">
+                    <input type="text" id="searchQueryKtg" name="query" class="form-control" placeholder="Cari">
+                </div>
+            </div>
+        </div>
+        <a style="margin-bottom: 10pt;" href='@Url.Action("tambahKategoriUniversitas", "Universitas", new{Area = "Administrator"})' class="btn btn-outline-primary">
+                <img width="20px" src="/svgs/regular/plus-square.svg" alt="Tambah">
+                Tambah Kategori Universitas
+        </a>
+        <table class="table table-hover" id="tableKtgUniversitas">
+            <thead>
+                <th class="text-center align-middle">Kategori</th>
+                <th class="text-center align-middle">Aksi</th>
+            </thead>
+            <tbody>
+                @foreach (var item in @ViewBag.kategoriUniversitas)
+                {
+                    <tr class="baris_tabel">
+                        <td class="text-center align-middle">@item.katgUniv</td>
+                        <td class="text-center align-middle">
+                            <a style="color: black;" href='@Url.Action("editKategoriUniversitas", "Universitas", new{Area = "Administrator", ID = @item.ID.ToString()})' class="btn btn-outline-warning"><img style="border-right: 10px;" width="20px" src="/svgs/regular/edit.svg" alt="Edit">Edit</a>
+                            <a style="color: black;" onclick="hapusKategori('@item.ID.ToString()')" class="btn btn-outline-warning"><img style="border-right: 10px;" width="20px" src="/svgs/regular/trash-alt.svg" alt="Hapus">Hapus</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <h1 class="mt-4">Data Universitas</h1>
+        <hr>
+        <div class="float-right">
+            <div class="form-inline">
+                <div class="form group" style="width: auto;">
+                    <input type="text" id="searchQuery" name="query" class="form-control" placeholder="Cari">
+                </div>
+            </div>
+        </div>
+        <a style="margin-bottom: 10pt;" href='@Url.Action("tambahUniversitas", "Universitas", new{Area = "Administrator"})' class="btn btn-outline-primary">
+                <img width="20px" src="/svgs/regular/plus-square.svg" alt="Tambah">
+                Tambah Universitas
+        </a>
+        <h5 class="mt-2 text-info">Saat ini terdapat @ViewBag.countAll sekolah terdaftar</h5>
+        <table class="table table-hover" id="tableUniversitas">
+            <thead>
+                <th class="text-center align-middle">Universitas</th>
+                <th class="text-center align-middle">Provinsi</th>
+                <th class="text-center align-middle">Kategori Universitas</th>
+                <th class="text-center align-middle">Aksi</th>
+            </thead>
+            <tbody>
+                @foreach (var item in @ViewBag.Universitas)
+                {
+                    <tr class="baris_tabel">
+                        <td class="text-center align-middle">@item.universitas</td>
+                        <td class="text-center align-middle">@item.mst_fkProvinsi</td>
+                        <td class="text-center align-middle">@item.mst_fkKatUniv</td>
+                        <td class="text-center align-middle">
+                            <a style="color: black;" href='@Url.Action("updateStatistik", "Universitas", new{Area = "Administrator", ID = @item.ID.ToString()})' class="btn btn-outline-info"><img style="border-right: 10px;" width="20px" src="/svgs/regular/edit.svg" alt="Edit">Statistik</a>
+                            <a style="color: black;" href='@Url.Action("editUniversitas", "Universitas", new{Area = "Administrator", ID = @item.ID.ToString()})' class="btn btn-outline-warning"><img style="border-right: 10px;" width="20px" src="/svgs/regular/edit.svg" alt="Edit">Edit</a>
+                            <a style="color: black;" onclick="hapus('@item.ID.ToString()')" class="btn btn-outline-warning"><img style="border-right: 10px;" width="20px" src="/svgs/regular/trash-alt.svg" alt="Hapus">Hapus</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+
+
+
+        $(document).ready(function(){
+            var schTable = $("#tableUniversitas").DataTable({
+                @* "pagingType" : "full_numbers", *@
+                "dom":' ltp'
+            });
+            $('#searchQuery').keyup(function(){
+                schTable.search($(this).val()).draw() ;
+            });
+            var ktgTable = $("#tableKtgUniversitas").DataTable({
+                @* "pagingType" : "full_numbers", *@
+                "dom":' ltp'
+            });
+            $('#searchQueryKtg').keyup(function(){
+                ktgTable.search($(this).val()).draw() ;
+            });
+        })
+
+
+        let hapus = function(param)
+        {
+            if(window.confirm("Yakin ingin menghapus data ini?"))
+            {
+                window.location.href = 'Universitas/hapusUniversitas/' + param;
+            }
+        }
+
+        let hapusKategori = function()
+        {
+            if(window.confirm("Yakin ingin menghapus data ini?"))
+            {
+                window.location.href = 'Universitas/hapusKategoriUniversitas/' + param;
+            }
+        }
+
+        
+    </script>
+}

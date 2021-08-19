@@ -1,0 +1,75 @@
+@model IEnumerable<AppUser>
+
+@{
+    ViewData["Title"] = "Admin/Users";
+}
+
+<section class="text-center">
+    <h1>Data Users</h1>
+</section>
+
+<section style="margin: 1rem 0;">
+    <div class="float-right">
+        <div class="form-inline">
+            <div class="form group" style="width: auto;">
+                <input type="text" id="searchQuery" name="query" class="form-control" placeholder="Cari User">
+            </div>
+        </div>
+    </div>
+    <a asp-action="Daftar" asp-area="" asp-controller="Akun" class="btn btn-outline-primary">
+        <img width="20px" src="/svgs/regular/plus-square.svg" alt="Tambah">
+        Tambah User Baru
+    </a>    
+</section>
+<section>
+        @if(Model.Any())
+        {
+            <table class="table table-hover" id="usersList">
+                <thead>
+                    <th class="text-center align-middle">Email</th>
+                    <th class="text-center align-middle">Nama Pengguna</th>
+                    <th class="text-center align-middle">Nama</th>
+                    <th class="text-center align-middle">Joined</th>
+                    <th class="text-center align-middle">Aksi</th>
+                </thead>
+                <tbody>
+                    @foreach(var _user in Model)
+                    {
+                        <tr class="text-center align-middle">
+                            <td>
+                                @_user.Email
+                            </td>
+                            <td>@_user.UserName</td>
+                            <td>@_user.UserName</td>
+                            <td>@_user.joinDate.ToString("dd/MM/yyyy - HH:mm:ss 'GMT'z")</td>
+                            <td>
+                                <buttton class="btn btn-outline-danger" style="width: auto;">Ban (cabut akses)</buttton>
+                                <buttton class="btn btn-outline-info" style="width: auto;">Atur Ulang Info</buttton>
+                                <buttton class="btn btn-outline-info" style="width: auto;">Kirim Email</buttton>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+</section>
+
+@section Scripts
+{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+
+        $(document).ready(function(){
+            var usersList = $("#usersList").DataTable({
+                @* "pagingType" : "full_numbers", *@
+                "dom":' ltp'
+            });
+            $('#searchQuery').keyup(function(){
+                usersList.search($(this).val()).draw() ;
+            });
+        })
+    </script>
+}

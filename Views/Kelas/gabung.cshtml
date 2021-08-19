@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Gabung ke kelas";
+}
+@model joinGrupView
+
+<div class="row d-flex my-2">
+    <div class="col-12 mx-auto">
+        <div class="text-center">
+            <h5 class="display-6">@Model.namaKelas</h1>
+            @*===== Tampilkan kode kelas jika user gabung kelas via Kode =====*@
+            @if(Model.isAccesingByCode){
+                <span class="fs-5 text-muted font-monospace">@Model.IDKelas</span>
+            }
+            <small class="text-muted">Kelas dibuat oleh @Model.kreator pada @Model.createdDate.ToString("dd/MM/yyyy HH:mm 'WIB'")</small>
+        </div>
+    </div>
+</div>
+
+<div class="row d-flex my-1 align-items-end">
+    <div class="p-2 col-sm-12 col-md-8">
+        <div class="text-start">
+            <h3 class="text-uppercase">Peraturan Kelas @Model.namaKelas</h3>
+            <p class="my-2">
+                @Model.userGuide
+            </p>
+        </div>
+    </div>
+    <div class="p-2 col-sm-12 col-md-4">
+        <form asp-action="gabung" method="post" asp-route-codeAcc="@Model.isAccesingByCode">
+            <div class="form-group">
+                <input type="hidden" asp-for="IDKelas">
+                <input type="checkbox" asp-for="isAgree" class="form-check-input" id="agree1">
+                <label class="form-check-label" for="agree1">Saya setuju dengan peraturan kelas @Model.namaKelas<span>. </span>Saya berjanji akan mematuhi setiap poin peraturan yang telah dibuat.</label>
+            </div>
+            @if (Model.isAccesingByCode)
+            {
+                <button type="submit" class="btn btn-outline-primary">Gabung</button>
+            }else{
+                <button type="submit" class="btn btn-outline-primary">Minta untuk bergabung</button>
+            }
+        </form>
+    </div>
+</div>

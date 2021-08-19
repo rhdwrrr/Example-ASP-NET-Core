@@ -1,0 +1,66 @@
+@model signUpModel
+
+@{
+    ViewData["Title"] = "Registrasi ";
+}
+<div class="row my-2">
+    <h1 class="text-center">Registrasi Pengguna</h1>
+</div>
+
+<form asp-action="daftar" method="post">
+    <div class="row my-4">
+        <div class="col-12 d-flex text-center">
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+                <label asp-for="email"></label>
+                <input asp-for="email" class="form-control">
+                <span style="display: block;" asp-validation-for="email" class="text-danger"></span>
+                <span class="text-primary">Untuk saat ini kami hanya mendukung <br>
+                    <ul>
+                        <li>Google Mail (gmail.com)</li>
+                        <li>Outlook Mail (outlook.com dan hotmail.com)</li>
+                        <li>ProtonMail (protonmail.com dan pm.me)</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+                <label asp-for="username"></label>
+                <input asp-for="username" class="form-control">
+                <span asp-validation-for="username" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+                <label asp-for="password"></label>
+                <input asp-for="password" class="form-control">
+                <span asp-validation-for="password" class="text-danger"></span>  
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+                <label asp-for="confirmPass"></label>
+                <input asp-for="confirmPass" class="form-control">
+                <span asp-validation-for="confirmPass" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+                <label asp-for="sex"></label>
+                <select asp-for="sex" class="form-control">
+                    <option value="Male">Pria</option>
+                    <option value="Female">Wanita</option>
+                </select>
+                <span asp-validation-for="sex" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-12 d-flex my-4">
+            <button type="submit" class="mx-auto btn btn-outline-primary">Daftar</button>
+        </div>
+    </div>
+</form>
+
+

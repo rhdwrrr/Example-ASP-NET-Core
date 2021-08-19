@@ -1,0 +1,64 @@
+@model List<userRoles>
+
+@{
+    var roleID = ViewBag.roleID;
+}
+
+<h1 class="text-center">Manage User in @ViewBag.roleName Role</h1>
+
+<form asp-action="manageUserInRole" method="post">
+    <input type="hidden" name="roleID" value="@roleID" readonly>
+    <div style="margin: 1rem 0;" class="float-right">
+        <div class="form-inline">
+            <div class="form group" style="width: auto;">
+                <input type="text" id="searchQuery" name="query" class="form-control" placeholder="Cari User">
+            </div>
+        </div>
+    </div>
+    <table class="table table-hover" id="usersList">
+        <thead>
+            <th class="text-center align-middle">Anggota Role?</th>
+            <th class="text-center align-middle">Nama Pengguna</th>
+            <th class="text-center align-middle">ID Pengguna</th>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr class="text-center align-middle">
+                    <td>
+                        <div class="form-check m-1">
+                            <input asp-for="@Model[i].isSelected" class="form-check-input">
+                        </div>
+                    </td>
+                    <td><label asp-for="@Model[i].isSelected">@Model[i].username</label></td>
+                    <td><label asp-for="@Model[i].isSelected">@Model[i].userID</label></td>
+
+                    <input type="hidden" asp-for="@Model[i].userID">
+                    <input type="hidden" asp-for="@Model[i].username">
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-outline-primary">Simpan</button>
+    <a asp-action="edit" asp-route-ID="@roleID" asp-controller="Role" asp-area="Administrator" class="btn btn-outline-danger">Batal</a>
+</form>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function(){
+            var usersList = $("#usersList").DataTable({
+                @* "pagingType" : "full_numbers", *@
+                "dom":' ltp'
+            });
+            $('#searchQuery').keyup(function(){
+                usersList.search($(this).val()).draw() ;
+            });
+        })
+
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]")
+        }
+    </script>
+}

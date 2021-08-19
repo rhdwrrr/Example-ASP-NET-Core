@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Provinsi dibuang";
+}
+@model IEnumerable<ProvinsiDump>
+<div class="text-center">
+    <h1>Data Provinsi (Dibuang)</h1>
+</div>
+<hr>
+<table class="table table-hover">
+    <thead>
+        <th class="text-center align-middle">Provinsi</th>
+        <th class="text-center align-middle">Aksi</th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center align-middle">@item.provinsi</td>
+                <td class="text-center align-middle">
+                    <a style="color: black;" asp-action="pulihkan" asp-controller="Provinsi" asp-area="Administrator" asp-route-ID="@item.ID.ToString()" class="btn btn-outline-primary">Pulihkan</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]")
+        }
+        
+    </script>
+}

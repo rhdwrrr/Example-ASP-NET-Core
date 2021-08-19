@@ -1,0 +1,69 @@
+@{
+    ViewData["Title"] = "Admin/KabupatenKota";
+}
+@model IEnumerable<KabupatenKota>
+<h1 class="mt-4">Data Kabupaten Kota</h1>
+<hr>
+<div class="float-right">
+    <div class="form-inline">
+        <div class="form group" style="width: auto;">
+            <input type="text" id="searchQuery" name="query" class="form-control" placeholder="Cari">
+        </div>
+    </div>
+</div>
+<a style="margin-bottom: 10pt;" href='@Url.Action("tambah", "KabupatenKota", new{Area = "Administrator"})' class="btn btn-outline-primary">
+        <img width="20px" src="/svgs/regular/plus-square.svg" alt="Tambah">
+        Tambah Kabupaten/Kota
+</a>
+<a style="margin-bottom: 10pt; width: auto;" href='@Url.Action("dihapus", "KabupatenKota", new{Area = "Administrator"})' class="btn btn-outline-info">
+        Kabupaten/Kota dibuang
+</a>
+<table class="table table-hover" id="tabelKabKota">
+    <thead>
+        <th class="text-center align-middle">Kabupaten/Kota</th>
+        <th class="text-center align-middle">Provinsi</th>
+        <th class="text-center align-middle">Aksi</th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="baris_tabel">
+                <td class="text-center align-middle">@item.kabupatenKota</td>
+                <td class="text-center align-middle">@item.mst_namaProvinsi</td>
+                <td class="text-center align-middle">
+                    <a style="color: black;" href='@Url.Action("edit", "KabupatenKota", new{Area = "Administrator", ID = @item.ID})' class="btn btn-outline-warning"><img style="border-right: 10px;" width="20px" src="/svgs/regular/edit.svg" alt="Edit">Edit</a>
+                    <a style="color: black;" onclick="hapus('@item.ID')" class="btn btn-outline-warning"><img style="border-right: 10px;" width="20px" src="/svgs/regular/trash-alt.svg" alt="Hapus">Hapus</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]")
+        }
+        
+        let hapus = function(param)
+        {
+            if(window.confirm("Yakin Ingin menghapus data ini?"))
+            {
+                window.location.href = 'KabupatenKota/hapus/' + param;
+            }
+        }
+        
+        $(document).ready(function(){
+            var oTable = $("#tabelKabKota").DataTable({
+                @* "pagingType" : "full_numbers", *@
+                "dom":' ltp'
+            });
+            $('#searchQuery').keyup(function(){
+                oTable.search($(this).val()).draw() ;
+            });
+        })
+        
+        
+    </script>
+}

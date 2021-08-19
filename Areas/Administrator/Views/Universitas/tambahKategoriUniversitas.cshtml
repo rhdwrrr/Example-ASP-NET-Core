@@ -1,0 +1,34 @@
+@{
+    ViewData["Title"] = "Admin/Tambah Kategori Universitas";
+}
+@model KategoriUniversitas
+<div class="text-center">
+    <h4>Tambah Data Kategori Universitas</h4>
+</div>
+
+<form asp-action="tambahKategoriUniversitas" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label class="control-label">Nama Kategori Universitas</label>
+        <textarea id="katUniv" class="form-control" asp-for="katgUniv"></textarea>
+        <span style="display: block;">Untuk input lebih dari satu, pisahkan tiap-tiap <i>item</i> dengan <strong>semicolon (;)</strong></span>
+        <span>Contoh: Kategori Universitas A;Kategori Universitas B;Kategori Universitas C</span>
+        <span style="display: block;" asp-validation-for="katgUniv" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href='@Url.Action("index", "Universitas", new{Area="Administrator"})' class="btn btn-outline-dark">Batal</a>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+
+        document.getElementById('katUniv').focus();
+    </script>
+    
+}

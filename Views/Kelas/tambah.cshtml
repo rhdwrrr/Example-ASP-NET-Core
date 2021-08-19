@@ -1,0 +1,48 @@
+@{
+    ViewData["Title"] = "Tambah Kelas";
+}
+@model kelas
+<div class="text-center">
+    <h4>Tambah Data Universitas</h4>
+</div>
+
+<form asp-action="tambah" method="post">
+    <div asp-validation-summary="All"></div>
+    <input type="hidden" asp-for="kreator" value="@User.Identity.Name">
+    <div class="form-group">
+        <label class="control-label">Nama Kelas</label>
+        <input type="text" id="namaKelas" class="form-control" asp-for="nama">
+        <span style="display: block;" asp-validation-for="nama" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label" asp-for="userGuide"></label>
+        <textarea class="form-control" id="userGuide" asp-for="userGuide" class="form-control"></textarea>
+        <span style="display: block;" asp-validation-for="userGuide" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="isPrivate">
+            <div class="checkbox">
+                <input asp-for="isPrivate">
+                @Html.DisplayNameFor(i => i.isPrivate)
+            </div>
+        </label>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href='@Url.Action("index", "Kelas", new{Area=""})' class="btn btn-outline-dark">Batal</a>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        CKEDITOR.replace( 'userGuide' );
+
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+
+        document.getElementById('namaKelas').focus();
+    </script>
+    
+}

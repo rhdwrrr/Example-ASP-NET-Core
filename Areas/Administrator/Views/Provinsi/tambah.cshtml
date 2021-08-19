@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Admin/Tambah Provinsi";
+}
+@model Provinsi
+<div class="text-center">
+    <h4>Tambah Data Provinsi</h4>
+</div>
+
+<form asp-action="tambah" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label class="form-label">Nama Provinsi</label>
+        <textarea id="provinsi" class="form-control" asp-for="provinsi"></textarea>
+        <span style="display: block;">Untuk input lebih dari satu, pisahkan tiap-tiap <i>item</i> dengan <strong>semicolon (;)</strong></span>
+        <span>Contoh: Provinsi A;Provinsi B;Provinsi C</span>
+        <span style="display: block;" asp-validation-for="provinsi" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href='@Url.Action("index", "Provinsi", new{Area="Administrator"})' class="btn btn-outline-dark">Batal</a>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        document.getElementById('provinsi').focus();
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+    </script>
+}

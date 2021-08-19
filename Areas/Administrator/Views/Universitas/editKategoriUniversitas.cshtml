@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "Admin/Edit Kategori Universitas";
+}
+@model KategoriUniversitas
+<div class="text-center">
+    <h4>Edit Data Kategori Universitas</h4>
+</div>
+
+<form asp-action="editKategoriUniversitas" method="post">
+    <div asp-validation-summary="All"></div>
+    <input type="hidden" readonly asp-for="ID">
+    <div class="form-group">
+        <label class="form-label">Nama Kategori Universitas</label>
+        <input id="katUniv" class="form-control" asp-for="katgUniv">
+        <span style="display: block;" asp-validation-for="katgUniv" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href='@Url.Action("index", "Universitas", new{Area="Administrator"})' class="btn btn-outline-dark">Batal</a>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+
+        document.getElementById('katUniv').focus();
+    </script>
+    
+}

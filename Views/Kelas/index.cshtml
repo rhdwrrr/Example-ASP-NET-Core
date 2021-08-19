@@ -1,0 +1,123 @@
+@{
+    ViewData["Title"] = "Kelas";
+}
+@model IEnumerable<kelas>
+
+<div class="row">
+    <div class="col">
+        <div class="text-center">
+            <h1>Kelas</h1>
+        </div>
+        <div class="float-right">
+            <div class="form-inline">
+                <div class="form group" style="width: auto;">
+                    <input type="text" id="searchQuery" name="query" class="form-control" placeholder="Cari">
+                </div>
+            </div>
+        </div>
+            <a style="margin-bottom: 10pt;" href='@Url.Action("tambah", "Kelas", new{Area = ""})' class="btn btn-outline-primary">
+                    <img width="20px" src="/svgs/regular/plus-square.svg" alt="Tambah">
+                    Tambah Kelas Baru
+            </a>
+    </div>
+</div>
+<div class="row d-flex my-4">
+    <div class="col-sm-12 col-md-6 mx-auto">
+        <div class="text-center">
+            <h5>Gabung menggunakan kode</h5>
+            <form asp-action="req" method="post">
+                <div class="form-group align-middle">
+                    <input style="font-family: 'Ubuntu Mono Regular'; font-size: 16pt;" type="text" name="keyKelas" class="form-control text-center" maxlength="8" aria-placeholder="Kode Kelas">
+                </div>
+                <div class="form-group align-middle">
+                   <button type="submit" class="btn btn-outline-primary">Gabung</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+            <div class="border border-dark rounded" style="padding: 1rem;">
+                <table id="tableKelas" class="align-middle text-center">
+                    @if(Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            if(item.isPrivate)
+                            {
+                                if(item.kreator == User.Identity.Name)
+                                {
+                                    <tr class="text-center align-middle">
+                                        <td>
+                                            <div class="card bg-dark text-white mb-2" style="width: 100%;">
+                                                <div class="card-header">
+                                                    Kode grup: <span style="font-family: 'Ubuntu Mono Regular'; font-size: 16pt;">@item.ID</span> - Privasi: Tertutup
+                                                </div>
+                                                <div class="card-body">
+                                                    <h4>@item.nama</h4>
+                                                    <small class="text-muted">Dibuat oleh: @item.kreator, pada @item.createdDate.ToString("dd/MM/yyyy HH:mm 'GMT'z")</small>
+                                                </div>
+                                                <div class="card-footer">
+                                                    @* <a asp-route-roleID="@Model.idRole" asp-action="manageUserInRole" asp-controller="Role" asp-area="Administrator" style="width: auto;" class="btn btn-outline-info">Tambah/Hapus User di Role @Model.RoleName</a> *@
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }else
+                            {
+                                <tr class="text-center">
+                                    <td>
+                                        <div class="card bg-primary text-white mb-2" style="width: 100%;">
+                                            <div class="card-header">
+                                                Kode grup: <span style="font-family: 'Ubuntu Mono Regular'; font-size: 16pt;">@item.ID</span>
+                                            </div>
+                                            <div class="card-body">
+                                                <h4>@item.nama</h4>
+                                                <small class="text-muted">Dibuat oleh: @item.kreator, pada @item.createdDate.ToString("dd/MM/yyyy HH:mm 'GMT'z")</small>
+                                            </div>
+                                            <div class="card-footer">
+                                                @* <a asp-route-roleID="@Model.idRole" asp-action="manageUserInRole" asp-controller="Role" asp-area="Administrator" style="width: auto;" class="btn btn-outline-info">Tambah/Hapus User di Role @Model.RoleName</a> *@
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            
+                        }
+                    }else{
+                        <tr>
+                            <td>
+                                <div class="card">
+                                    <div class="card-header">
+                                        -
+                                    </div>
+                                    <div class="card-body">
+                                        <h5>Belum ada kelas untuk saat ini</h5>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script>
+        var ktgTable = $("#tableKelas").DataTable({
+                @* "pagingType" : "full_numbers", *@
+                "dom":' ltp'
+            });
+            $('#searchQuery').keyup(function(){
+                ktgTable.search($(this).val()).draw() ;
+            });
+    </script>
+}
+
+

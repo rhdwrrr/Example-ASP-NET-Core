@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "Administrator Dashboard";
+}
+<h1 class="mt-4 mb-4">Administrator Dashboard</h1>
+
+<div class="row">
+  @if(User.IsInRole("Administrator")){
+    <div class="col-xl-3 col-md-6">
+      <div class="card bg-dark text-white mb-4">
+          <div class="card-body">Data Provinsi</div>
+          <div class="card-footer d-flex align-items-center justify-content-between">
+              <a class="small text-white stretched-link" asp-action="index" asp-area="Administrator" asp-controller="Provinsi">Kelola Data</a>
+              <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+          </div>
+      </div>
+    </div>
+  }
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-dark text-white mb-4">
+        <div class="card-body">Data Kabupaten/Kota</div>
+        <div class="card-footer d-flex align-items-center justify-content-between">
+            <a class="small text-white stretched-link" asp-action="index" asp-area="Administrator" asp-controller="KabupatenKota">Kelola Data</a>
+            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-dark text-white mb-4">
+        <div class="card-body">Data Sekolah</div>
+        <div class="card-footer d-flex align-items-center justify-content-between">
+            <a class="small text-white stretched-link" asp-action="index" asp-area="Administrator" asp-controller="Sekolah">Kelola Data</a>
+            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-dark text-white mb-4">
+        <div class="card-body">Data Universitas</div>
+        <div class="card-footer d-flex align-items-center justify-content-between">
+            <a class="small text-white stretched-link" asp-action="index" asp-area="Administrator" asp-controller="Universitas">Kelola Data</a>
+            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-dark text-white mb-4">
+        <div class="card-body">Data Role Pengguna</div>
+        <div class="card-footer d-flex align-items-center justify-content-between">
+            <a class="small text-white stretched-link" asp-action="index" asp-area="Administrator" asp-controller="Role">Kelola Data</a>
+            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-dark text-white mb-4">
+        <div class="card-body">Data Pengguna</div>
+        <div class="card-footer d-flex align-items-center justify-content-between">
+            <a class="small text-white stretched-link" asp-action="index" asp-area="Administrator" asp-controller="Users">Kelola Data</a>
+            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        </div>
+    </div>
+  </div>  
+</div>
+
+@* <table style="width: 100vw;" align="center">
+  <tr>
+    <td>
+      
+    </td>
+    <td>
+      <div class="card" style="width: 200px;">
+        <img class="card-img-top" src="/img/placeholder_card.png" alt="Card image">
+        <div class="card-body">
+          <h4 class="card-title">Data Kabupaten/Kota</h4>
+          <p class="card-text">Kelola Data Kabupaten/Kota</p>
+          <a href='@Url.Action("index", "KabupatenKota", new{ Area = "Administrator" })' class="btn btn-info">Kelola</a>
+        </div>
+      </div>
+    </td>
+    <td>
+      
+    </td>
+  </tr>
+</table> *@
+

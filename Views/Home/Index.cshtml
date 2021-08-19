@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* <div class="text-center mt-4"> *@
+    <!-- Welcome Message -->
+        <div class="row my-2 ">
+            <div class="col-sm-12 ">
+                <h1 class="text-center display-6 ">Welcome to OrigamiEdu</h1>
+                <h1 class="text-center display-6 ">@ViewBag.UTCTime</h1>
+                
+                <h2 class="text-center  ">@DateTime.UtcNow.ToString("dd MMM yyyy hh:mm 'UTC'z")</h2>
+                <h3 class="text-center  ">@DateTime.Now.ToString("dd MMM yyyy hh:mm 'UTC'z")</h3>
+            </div>
+        </div>
+
+        
+
+        <div class="row my-4 d-flex align-items-center ">
+            <!-- <div class="d-flex align-items-center "> -->
+            <div style="transition: .3s; " class="col-sm-12 col-md-5 p-2 shadow-none " id="coverM1 " onmouseover="hoverCover() " onmouseout="hoverOut() ">
+                <img src="./img/pexels-pixabay-220201.jpg " alt=" " class="img-fluid rounded " style="object-fit: cover; ">
+            </div>
+            <div class="col-sm-12 col-md-7 p-2 ">
+
+                <h3 class="text-center mb-3 ">Di OrigamiEdu, tidak hanya latihan TO</h3>
+                <p class="mt-2 " style="text-align: justify; ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit eos est molestiae provident reprehenderit quae similique! Animi inventore nihil sunt possimus, voluptatibus minima, iusto molestiae quas, voluptas placeat labore natus sapiente
+                    exercitationem tenetur recusandae perspiciatis ratione iure libero! Fugiat sequi aut eius vero cum impedit, aperiam voluptas, ipsam quis nemo molestiae neque, atque recusandae laboriosam unde explicabo similique exercitationem modi
+                    odio non minima expedita suscipit quia. Facere in a id nulla libero facilis inventore ad?</p>
+            </div>
+            <!-- </div> -->
+        </div>
+    @* <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <a href='@Url.Action("index", "Administrator", new{ Area = "Administrator" })' class="btn btn-xl btn-outline-danger">Admin</a>
+    <a asp-action="index" asp-controller="Kelas" asp-area="" class="btn btn-xl btn-outline-info">Kelas</a> *@
+@* </div> *@
+
+@section scripts
+{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+    </script>
+}

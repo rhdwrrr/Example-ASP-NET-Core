@@ -1,0 +1,213 @@
+@model updateStatsView
+@{
+    ViewData["Title"] = $"Statistik {Model.namaUniv}";
+}
+<div class="row">
+    <div class="col">
+        <div class="text-center">
+            <h1>Data Statistik @Model.namaUniv</h1>
+            
+        </div>
+        <hr>
+        
+        <form asp-action="updateStatistik" id="form">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row" id="FormROW">
+                <input type="hidden" readonly asp-for="@Model.idUniv">
+                @* <input type="hidden" readonly asp-for="objUniversitas.universitas" value="@Model.namaUniv"> *@
+                @for (int i = 0; i < Model.lists.Count; i++)
+                {
+                    <div class="col-md-4 form-statistik border border-dark rounded" style="padding: 0.25rem; margin-bottom: 0.25rem; mr-2">
+                        <input type="hidden" asp-for="@Model.lists[i].ID" readonly>
+                        <div class="form-group">
+                            <label class="control-label">Tahun</label>
+                            <input type="number" asp-for="@Model.lists[i].year" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Kuota</label>
+                            <input type="number" asp-for="@Model.lists[i].kuota" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Peminat</label>
+                            <input type="number" asp-for="@Model.lists[i].peminat" class="form-control">
+                        </div>
+                        <div class="float-right">
+                            <button class="btn btn-outline-danger" onclick="deleteStats('@Model.lists[i].ID', '@Model.lists[i].year')">Hapus Statistik</button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-sm-12 border border-info rounded" id="form-btns" style="padding: 0.75rem;">
+                <a class="btn btn-outline-info" onclick="addField()">
+                    <img style="border-right: 10px;" width="20px" src="/svgs/regular/plus-square.svg" alt="Edit">
+                    Tambah Kolom Statistik
+                </a>
+                <button class="btn btn-outline-primary" type="submit">Simpan Perubahan</button>
+                <a class="btn btn-outline-danger" onclick="quit()">Batal</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+
+        let deleteStats = function(paramID, paramYr, index)
+        {
+            if(window.confirm("Hapus statistik tahun " + paramYr + " ?")){
+                window.location.href = "/Administrator/Universitas/hapusStatistik/" + paramID;
+            }
+        }
+
+        let generateView = function(param, index)
+        {
+            let form_control = document.createElement("div");
+            form_control.className = "form-group";
+
+            let label = document.createElement("label");
+            label.className = "control-label";
+            let text = document.createTextNode(param);
+            label.appendChild(text);
+            let input = document.createElement("input");
+            input.type = "number";
+            input.className = "form-control";
+            if(param === "Tahun")
+            {
+                input.setAttribute("name", "lists[" + index + "].year");
+                input.setAttribute("id", "lists_" + index + "__year");
+            }else if(param == "Kuota")
+            {
+                input.setAttribute("name", "lists[" + index + "].kuota");
+                input.setAttribute("id", "lists_" + index + "__kuota");
+            }else if(param === "Peminat")
+            {
+                input.setAttribute("name", "lists[" + index + "].peminat");
+                input.setAttribute("id", "lists_" + index + "__peminat");
+            }
+            form_control.appendChild(label);
+            form_control.appendChild(input);
+
+            return(form_control);
+        }
+
+        let addField = function()
+        {
+            let idx = document.getElementsByClassName("form-statistik").length;
+
+
+
+            if((idx!=0))
+            {
+                let nameYr = "lists_" + (idx-1).toString() + "__year";
+                let nameQt = "lists_" + (idx-1).toString() + "__kuota";
+                let namePm = "lists_" + (idx-1).toString() + "__peminat";
+
+                if(document.getElementById(nameYr).value === "" || document.getElementById(nameQt).value === "" || document.getElementById(namePm).value === "")
+                {
+                    alert("Pastikan data telah terisi dengan benar sebelum menambah form");
+                    return;
+                }
+            } 
+
+            
+
+
+            let container = document.createElement("div");
+            container.className = "col-md-4 form-statistik border border-dark rounded";
+            container.style.marginBottom = "0.25rem";
+            container.style.padding = "0.25rem";
+            
+
+            let createInput = document.createElement("input");
+            createInput.type = "hidden";
+            createInput.name = "lists[" + idx + "].ID";
+            createInput.id = "lists_" + idx + "__ID";
+            createInput.value = "@Guid.Empty"
+            createInput.setAttribute("readonly", "");
+
+            container.appendChild(createInput);
+
+            let tahun = generateView("Tahun", idx);
+            let kuota = generateView("Kuota", idx);
+            let peminat = generateView("Peminat", idx);
+
+            container.appendChild(tahun);
+            container.appendChild(kuota);
+            container.appendChild(peminat);
+
+            document.getElementById("FormROW").appendChild(container);
+        }
+
+        let quit = function()
+        {
+            if(window.confirm("Anda akan keluar dari menu edit statistik dan membatalkan semua perubahan yang anda lakukan. Lanjutkan?"))
+            {
+                window.location.href = "/Administrator/Universitas/";
+            }
+        }
+
+
+        @* ================================== UNUSED ================================== *@
+        @* ============================================================================ *@
+
+        @* $(function(){
+           $("#saveForm").click(function(){
+               var registered = $("input[name=keyID]").length;
+               for(var i = 0; i < registered; i++)
+               {
+                   for(var j = i + 1; j < registered; j++)
+                   {
+                       if((document.getElementsByName('year')[i].value == document.getElementsByName('year')[j]).value || (document.getElementsByName('year')[i].value === document.getElementsByName('year')[j].value))
+                       {
+                           alert("Pastikan data telah terisi dengan benar, dan tidak terdapat tahun ganda");
+                           return false;
+                       }
+                   }
+               }
+
+               var error = 0;
+
+               for(var i = 0; i < registered; i++)
+               {
+                   $.post("/Administrator/Universitas/updateStatistik", 
+                   { idStats : $("input[name=keyID]:eq("+i+")").val()
+                    , idUniversitas : $("#primaryUniversitas").val()
+                    , yr : $("input[name=year]:eq("+i+")").val()
+                    , kuota : $("input[name=kuota]:eq("+i+")").val()
+                    , peminat : $("input[name=peminat]:eq("+i+")").val()},
+                    function(response){
+                        if(response === "OK")
+                        {
+                            error += 0;
+                        }else{
+                            error += 1;
+                        }
+                    }
+                    ) ;
+               }
+
+               if(!(error == 0))
+               {
+                   alert("Beberapa data tidak dapat disimpan!");
+               }
+               else{
+                   alert("Data berhasil disimpan");
+                   window.location.href = "/Administrator/Universitas/";
+                   return;
+               }
+
+           });
+        }); *@
+
+        @* ============================================================================ *@
+        @* ============================================================================ *@
+
+
+    </script>
+}

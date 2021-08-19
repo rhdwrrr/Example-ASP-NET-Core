@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Admin/Ubah KabupatenKota";
+    var message = TempData["message"];
+}
+@model KabupatenKota
+<h1 class="mt-4">Edit Kabupaten/Kota</h1>
+
+<form asp-action="edit" method="post">
+
+    
+    <input readonly type="hidden" asp-for="ID">
+
+
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label class="control-label">Pilih Provinsi</label>
+        <select class="form-control" asp-for="mst_primaryProvinsi" asp-items="@ViewBag.comboProvinsi">
+            <option value="">Daftar Provinsi</option>
+        </select>
+        <span style="display: block;" asp-validation-for="mst_primaryProvinsi" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Nama Kabupaten/Kota</label>
+        <input type="text" id="kabKota" class="form-control" asp-for="kabupatenKota">
+        <span style="display: block;" asp-validation-for="kabupatenKota" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href='@Url.Action("index", "KabupatenKota", new{Area="Administrator"})' class="btn btn-outline-dark">Batal</a>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        document.getElementById('kabKota').focus();
+        if(!("@message" === ""))
+        {
+            alert("@message");
+        }
+    </script>
+    
+}

@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Admin/Edit Sekolah";
+}
+@model Sekolah
+<h1 class="mt-4">Edit Sekolah</h1>
+
+<form asp-action="edit" method="post">
+    <div asp-validation-summary="All"></div>
+    <input type="hidden" asp-for="mst_primary">
+    <div class="form-group">
+        <label class="control-label">Pilih Provinsi</label>
+        <select id="comboProvinsi" class="form-control" asp-for="mst_primaryProvinsi" asp-items="@ViewBag.comboProvinsi"> 
+            <option value="">Daftar Provinsi</option>
+        </select>
+        <span asp-validation-for="mst_primaryProvinsi" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Pilih Kabupaten/Kota</label>
+        <select id="comboKabKota" class="form-control" asp-for="mst_fkKab" asp-items="@ViewBag.comboKabupaten">
+            <option value="">Daftar Kabupaten/Kota</option>
+        </select>
+        <span asp-validation-for="mst_fkKab" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Pilih Kategori Sekolah</label>
+        <select asp-for="mst_primaryKtg" id="kategoriSekolah" asp-items="@ViewBag.kategori" class="form-control">
+            <option value="">Daftar Kategori</option>
+        </select>
+        <span style="display: block;" asp-validation-for="mst_primaryKtg" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Nama Sekolah</label>
+        <input type="text" id="school" class="form-control" asp-for="sekolah">
+        <span>Contoh: Sekolah A;Sekolah B;Sekolah C</span>
+        <span style="display: block;" asp-validation-for="sekolah" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href='@Url.Action("index", "Sekolah", new{Area="Administrator"})' class="btn btn-outline-dark">Batal</a>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        if(!("@TempData["message"]" === ""))
+        {
+            alert("@TempData["message"]");
+        }
+
+        document.getElementById('school').focus();
+        
+        $(function(){
+           $("#comboProvinsi").change(function(){         
+              $.post("/Administrator/Sekolah/comboKab", 
+                     { ID: $("#comboProvinsi option:selected").val()}, 
+                    function(response){
+                        if(response == null)
+                        {
+                            $("#comboKabKota").empty();
+                            $("#comboKabKota").append('<option value="">Daftar Kabupaten/Kota</option>');
+                        }else{
+                            $("#comboKabKota").empty();
+                            $("#comboKabKota").append('<option value="">Daftar Kabupaten/Kota</option>');
+                            $.each(response, function(index, value){
+                                $("#comboKabKota").append('<option value = "'+value.key+'">'+value.kabupatenKota+'</option>');
+                            });
+                        }
+                    }
+                ) ;
+           });
+        });
+    </script>
+    
+}
