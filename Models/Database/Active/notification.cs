@@ -6,7 +6,7 @@ namespace OrigamiEdu.Models
     {
         // public Guid ID { get; set; }
         public AppUser user { get; set; }
-        public string[] unameInvolved { get; set; }
+        public string unameInvolved { get; set; }
         public string info { get; set; }
         public string type { get; set; }
         public string link { get; set; }

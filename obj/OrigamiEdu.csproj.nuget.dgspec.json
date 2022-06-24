@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Personal Data\\OrigamiEdu\\OrigamiEdu.csproj": {}
+    "D:\\Codes\\repo pribadi\\Example-ASP-NET-Core\\OrigamiEdu.csproj": {}
   },
   "projects": {
-    "D:\\Personal Data\\OrigamiEdu\\OrigamiEdu.csproj": {
+    "D:\\Codes\\repo pribadi\\Example-ASP-NET-Core\\OrigamiEdu.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Personal Data\\OrigamiEdu\\OrigamiEdu.csproj",
+        "projectUniqueName": "D:\\Codes\\repo pribadi\\Example-ASP-NET-Core\\OrigamiEdu.csproj",
         "projectName": "OrigamiEdu",
-        "projectPath": "D:\\Personal Data\\OrigamiEdu\\OrigamiEdu.csproj",
-        "packagesPath": "C:\\Users\\Ragil Hadiworo\\.nuget\\packages\\",
-        "outputPath": "D:\\Personal Data\\OrigamiEdu\\obj\\",
+        "projectPath": "D:\\Codes\\repo pribadi\\Example-ASP-NET-Core\\OrigamiEdu.csproj",
+        "packagesPath": "C:\\Users\\21010266\\.nuget\\packages\\",
+        "outputPath": "D:\\Codes\\repo pribadi\\Example-ASP-NET-Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Ragil Hadiworo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\21010266\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +43,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
             "NodaTime": {
               "target": "Package",
               "version": "[3.0.3, )"
@@ -77,6 +84,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[5.0.15, 5.0.15]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -85,7 +98,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

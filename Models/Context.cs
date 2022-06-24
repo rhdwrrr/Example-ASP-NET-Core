@@ -105,7 +105,7 @@ namespace OrigamiEdu.Models
                         RoleId = RoleId_SuperAdmin.ToString(),
                         UserId = SuperAdminID.ToString()
                     }
-                )
+                );
             #endregion
         }
     }

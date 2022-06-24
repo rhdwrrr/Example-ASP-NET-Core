@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace OrigamiEdu.Migrations
 {
-    public partial class db48 : Migration
+    public partial class Slate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,10 +11,10 @@ namespace OrigamiEdu.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -26,8 +25,8 @@ namespace OrigamiEdu.Migrations
                 name: "kabupatenKotaDumps",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    kabupatenKota = table.Column<string>(type: "text", nullable: true)
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    kabupatenKota = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -38,8 +37,8 @@ namespace OrigamiEdu.Migrations
                 name: "kategoriSekolahs",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    namaKategori = table.Column<string>(type: "text", nullable: false)
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    namaKategori = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,8 +49,8 @@ namespace OrigamiEdu.Migrations
                 name: "kategoriUniversitas",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    katgUniv = table.Column<string>(type: "text", nullable: false)
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    katgUniv = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,8 +61,8 @@ namespace OrigamiEdu.Migrations
                 name: "provinsiDumps",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    provinsi = table.Column<string>(type: "text", nullable: true)
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    provinsi = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -74,7 +73,7 @@ namespace OrigamiEdu.Migrations
                 name: "Provinsis",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     provinsi = table.Column<string>(type: "varchar(25)", nullable: false)
                 },
                 constraints: table =>
@@ -86,8 +85,8 @@ namespace OrigamiEdu.Migrations
                 name: "sekolahDumps",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    sekolah = table.Column<string>(type: "text", nullable: true)
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    sekolah = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -98,8 +97,8 @@ namespace OrigamiEdu.Migrations
                 name: "universitasDumps",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    universitas = table.Column<string>(type: "text", nullable: true)
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    universitas = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,11 +109,11 @@ namespace OrigamiEdu.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RoleId = table.Column<string>(type: "text", nullable: false),
-                    ClaimType = table.Column<string>(type: "text", nullable: true),
-                    ClaimValue = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -131,9 +130,9 @@ namespace OrigamiEdu.Migrations
                 name: "KabupatenKotas",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     kabupatenKota = table.Column<string>(type: "Varchar(50)", nullable: false),
-                    fkProvinsiID = table.Column<Guid>(type: "uuid", nullable: true)
+                    fkProvinsiID = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -150,10 +149,10 @@ namespace OrigamiEdu.Migrations
                 name: "universitas",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    universitas = table.Column<string>(type: "text", nullable: false),
-                    fkProvinsiID = table.Column<Guid>(type: "uuid", nullable: true),
-                    fkKategoriUniversitasID = table.Column<Guid>(type: "uuid", nullable: true)
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    universitas = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    fkProvinsiID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    fkKategoriUniversitasID = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,10 +175,10 @@ namespace OrigamiEdu.Migrations
                 name: "Sekolahs",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    sekolah = table.Column<string>(type: "text", nullable: false),
-                    fkKabupatenKotaID = table.Column<Guid>(type: "uuid", nullable: true),
-                    fkKategoriSekolahID = table.Column<Guid>(type: "uuid", nullable: true)
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    sekolah = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    fkKabupatenKotaID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    fkKategoriSekolahID = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -202,11 +201,11 @@ namespace OrigamiEdu.Migrations
                 name: "statistikUnivs",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    fkUnivID = table.Column<Guid>(type: "uuid", nullable: true),
-                    year = table.Column<int>(type: "integer", nullable: false),
-                    peminat = table.Column<double>(type: "double precision", nullable: false),
-                    kuota = table.Column<double>(type: "double precision", nullable: false)
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    fkUnivID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    year = table.Column<int>(type: "int", nullable: false),
+                    peminat = table.Column<double>(type: "float", nullable: false),
+                    kuota = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -223,31 +222,31 @@ namespace OrigamiEdu.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    isBanned = table.Column<bool>(type: "boolean", nullable: false),
-                    bannedUntil = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    joinDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    birthday = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    gender = table.Column<string>(type: "text", nullable: true),
-                    fkSekolahID = table.Column<Guid>(type: "uuid", nullable: true),
-                    jurusanSekolah = table.Column<string>(type: "text", nullable: true),
-                    tryOutTokens = table.Column<double>(type: "double precision", nullable: false),
-                    isSetupInProgress = table.Column<bool>(type: "boolean", nullable: false),
-                    setupType = table.Column<int>(type: "integer", nullable: false),
-                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    isBanned = table.Column<bool>(type: "bit", nullable: false),
+                    bannedUntil = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    joinDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    fkSekolahID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    jurusanSekolah = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    tryOutTokens = table.Column<double>(type: "float", nullable: false),
+                    isSetupInProgress = table.Column<bool>(type: "bit", nullable: false),
+                    setupType = table.Column<int>(type: "int", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -264,12 +263,12 @@ namespace OrigamiEdu.Migrations
                 name: "adminNotifications",
                 columns: table => new
                 {
-                    adminId = table.Column<string>(type: "text", nullable: true),
-                    type = table.Column<string>(type: "text", nullable: true),
-                    info = table.Column<string>(type: "text", nullable: true),
-                    link = table.Column<string>(type: "text", nullable: true),
-                    timestamp = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    isSeen = table.Column<bool>(type: "boolean", nullable: false)
+                    adminId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    info = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    link = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    isSeen = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -285,11 +284,11 @@ namespace OrigamiEdu.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    ClaimType = table.Column<string>(type: "text", nullable: true),
-                    ClaimValue = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -306,10 +305,10 @@ namespace OrigamiEdu.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "text", nullable: false),
-                    ProviderKey = table.Column<string>(type: "text", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<string>(type: "text", nullable: false)
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -326,8 +325,8 @@ namespace OrigamiEdu.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    RoleId = table.Column<string>(type: "text", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -350,10 +349,10 @@ namespace OrigamiEdu.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    LoginProvider = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Value = table.Column<string>(type: "text", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -370,13 +369,14 @@ namespace OrigamiEdu.Migrations
                 name: "kelas",
                 columns: table => new
                 {
-                    ID = table.Column<string>(type: "text", nullable: false),
+                    ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     nama = table.Column<string>(type: "varchar(60)", nullable: false),
-                    fkCreatorId = table.Column<string>(type: "text", nullable: true),
-                    userGuide = table.Column<string>(type: "text", nullable: false),
-                    createdDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    isArchived = table.Column<bool>(type: "boolean", nullable: false),
-                    isPrivate = table.Column<bool>(type: "boolean", nullable: false)
+                    fkCreatorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    userGuide = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    createdDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    isArchived = table.Column<bool>(type: "bit", nullable: false),
+                    isPrivate = table.Column<bool>(type: "bit", nullable: false),
+                    isAllowedToPost = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -393,13 +393,13 @@ namespace OrigamiEdu.Migrations
                 name: "notifications",
                 columns: table => new
                 {
-                    userId = table.Column<string>(type: "text", nullable: true),
-                    unameInvolved = table.Column<string[]>(type: "text[]", nullable: true),
-                    info = table.Column<string>(type: "text", nullable: true),
-                    type = table.Column<string>(type: "text", nullable: true),
-                    link = table.Column<string>(type: "text", nullable: true),
-                    timestamp = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    isSeen = table.Column<bool>(type: "boolean", nullable: false)
+                    userId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    unameInvolved = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    info = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    link = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    isSeen = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -415,13 +415,13 @@ namespace OrigamiEdu.Migrations
                 name: "classParticipants",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    fkKelasID = table.Column<string>(type: "text", nullable: true),
-                    timestamp = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    accountId = table.Column<string>(type: "text", nullable: true),
-                    isBannedToPost = table.Column<bool>(type: "boolean", nullable: false),
-                    bannedUntil = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    isCreator = table.Column<bool>(type: "boolean", nullable: false)
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    fkKelasID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    accountId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    isBannedToPost = table.Column<bool>(type: "bit", nullable: false),
+                    bannedUntil = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    isCreator = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -444,11 +444,11 @@ namespace OrigamiEdu.Migrations
                 name: "dumpedUserFromClasses",
                 columns: table => new
                 {
-                    accountId = table.Column<string>(type: "text", nullable: true),
-                    fkkelasID = table.Column<string>(type: "text", nullable: true),
-                    timestamp = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    reason = table.Column<string>(type: "text", nullable: true),
-                    banUntil = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    accountId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    fkkelasID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    reason = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    banUntil = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -480,7 +480,8 @@ namespace OrigamiEdu.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -511,7 +512,8 @@ namespace OrigamiEdu.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_classParticipants_accountId",

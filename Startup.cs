@@ -36,9 +36,7 @@ namespace OrigamiEdu
                 options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();
             
-            services.AddDbContext<Context>(options => 
-                options.UseNpgsql(Configuration.GetConnectionString("postgreSQL"), 
-                options => options.SetPostgresVersion(13, 1)))
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("mssql")))
             ;
             services.AddTransient<ProvinsiRepository>();
             services.AddTransient<KabupatenKotaRepository>();
